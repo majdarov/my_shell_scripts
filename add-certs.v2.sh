@@ -47,15 +47,16 @@ echo "Adding certificates to user \"${user}\" for Server address: ${_server}..."
 read -p "Enter VPN connection name [ default: VPN ]: " _connection
 connection=${_connection:-VPN}
 
-# test -d ./certs/${connection} || mkdir -p ./certs/${connection}
+_path=~/.certs/${connection}
 
-openssl pkcs12 -in ${user}.p12 -cacerts -nokeys -out ca.cer $_legacy
-openssl pkcs12 -in ${user}.p12 -clcerts -nokeys -out client.cer $_legacy
-openssl pkcs12 -in ${user}.p12 -nocerts -nodes  -out client.key $_legacy
-# rm ${user}.p12
+test -d ${_path} || mkdir -p ${_path}
 
-# cd ./certs/${connection}
-_path=$(pwd)
+openssl pkcs12 -in ${user}.p12 -cacerts -nokeys -out ${_path}/ca.cer $_legacy
+openssl pkcs12 -in ${user}.p12 -clcerts -nokeys -out ${_path}/client.cer $_legacy
+openssl pkcs12 -in ${user}.p12 -nocerts -nodes  -out ${_path}/client.key $_legacy
+rm ${user}.p12
+
+cd ${_path}
 
 sudo chown root:root ca.cer client.cer client.key
 sudo chmod 600 ca.cer client.cer client.key
