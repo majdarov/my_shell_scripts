@@ -1,11 +1,30 @@
 #! /usr/bin/env bash
 
-# Run as root in /root/ folder
+# Use options for set params
+# -n VpnUser
+# -d /directory/to/set/certs, if not use -> set ../certs/${NameOfConnection}
+# -c NameOfConnection
 
 # 'Set -e' to exit on error, '-o pipefail' to exit on piped commands failing
 set -e
 set -o pipefail
 # set -x
+
+# if [ $# -gt 0 ]
+#     then
+#         echo $@
+# fi
+
+while getopts "d:n:" opt; do
+    case $opt in
+        d) arg_d="$OPTARG";;
+        n) arg_n="$OPTARG";;
+        \?) echo "Неизвестная опция"; exit 1;;
+    esac
+done
+
+echo "arg_d: ${arg_d}"
+echo "arg_n: ${arg_n}"
 
 # Check OpenSSL version
 _v_ossl=$(openssl version | awk '{print $2}' | cut -d '.' -f 1)
