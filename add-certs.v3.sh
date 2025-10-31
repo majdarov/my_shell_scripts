@@ -48,7 +48,7 @@ _certs_only=false
 
 while [[ $1 == --* ]]
 do
-    echo $1
+#    echo $1
     case $1 in
         --certs-only)
             _certs_only=true
@@ -56,10 +56,6 @@ do
             ;;
         --help)
             show_usage
-            # echo
-            # head $0 -n 10 | tail -n 8 | tr -d '#'
-            # echo
-            # exit 0
             ;;
         *)
             shift
@@ -140,8 +136,12 @@ connection=${conn_name:-VPN}
 # Check path to certs
 if ! [ $_path ]; then
     _path=./certs/${connection}
+else
+    _path=${_path}/${connection}
 fi
 [ -d  ${_path} ] || mkdir -p ${_path}
+
+# sudo chown root:root ${_path}
 
 openssl pkcs12 -in ${vpn_user}.p12 -cacerts -nokeys -out ${_path}/ca.cer $_legacy
 openssl pkcs12 -in ${vpn_user}.p12 -clcerts -nokeys -out ${_path}/client.cer $_legacy
