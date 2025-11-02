@@ -3,7 +3,7 @@
 _vpn=$1
 
 if [ -z $_vpn ]; then
-    cat 1>&2 <<EOF
+    cat 0>&2 <<EOF
 
     WARNING: Need name of vpn connection!
 
@@ -14,8 +14,9 @@ EOF
 fi
 
 checkConnVpn() {
-  local cfg_addr=$(nmcli c show $1 | grep "VPN.CFG" | grep address | tr ' ' '\n' | tail -1)
-  real_addr=$(curl -4 ifconfig.co)>>/dev/null
+#  local cfg_addr=$(nmcli c show $1 | grep "VPN.CFG" | grep address | tr ' ' '\n' | tail -1)
+  local cfg_addr=$(nmcli c show $1 | grep vpn.data | tr ',' '\n' | head -n 1 | cut -d '=' -f 2 | tr -d ' ')
+  real_addr=$(curl -4 ifconfig.co)>/dev/null
   if [ "${cfg_addr}" = "${real_addr}" ]; then
     return 0
   else
@@ -23,7 +24,7 @@ checkConnVpn() {
   fi
 }
 
-if checkConnVpn $1; then
+if checkConnVpn ${_vpn}; then
   echo "VPN is running! Address: ${real_addr} Connection: ${_vpn}"
 else
   echo "Not VPN is Running!"
