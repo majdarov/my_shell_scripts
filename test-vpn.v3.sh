@@ -25,7 +25,7 @@ selectConnection() {
     echo "  $((i + 1))) ${arr_conn[$i]}"
   done
 
-  read -p "Enter number (1 - ${#arr_conn[@]}):" num
+  read -p "Enter number (1 - ${#arr_conn[@]}):    " num
   num=${num:-1}
   _vpn=${arr_conn[$((num - 1))]}
 
@@ -51,7 +51,7 @@ checkConnVpn() {
 }
 
 while ! checkConnVpn ${_vpn} && [ ${chk_count} -gt 0 ]; do
-  sudo nmcli c up ${_vpn}
+  sudo nmcli c up ${_vpn} > /dev/null
   chk_count=$((chk_count - 1))
   sleep 2
 done
@@ -65,12 +65,13 @@ fi
 
 if [ "$yn" = "y" ] || [ "$yn" = "Y" ]; then
   echo
-  sudo nmcli c down ${_vpn}
+  sudo nmcli c down ${_vpn} > /dev/null
   echo "VPN is down!"
 fi
 
 unset _vpn
 unset real_addr
 unset chk_count
+unset yn
 
 exit 0

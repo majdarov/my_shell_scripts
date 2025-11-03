@@ -15,4 +15,13 @@ Use options for set params:
     --certs-only - only unpack certs, not add connection
     --help
 
-Скрипт распаковывает файл `${VpnUser}.p12` в указанную директорию и создает vpn подключение `$NameOfConnection`.
+Скрипт распаковывает файл `${VpnUser}.p12` в указанную директорию (извлекает сертификаты `ca.crt`, `client.crt`, `client.key`) и создает vpn подключение `$NameOfConnection`.
+С опцией **--certs-only** - только извлекает сертификаты.
+
+### [test-vpn.v3.sh](./test-vpn.v3.sh)
+
+Usage: `bash ./test-vpn.v3.sh [-s -c $NameOfConnection] | [$NameOfConnection]`
+
+Проверяет указанное подключение и, если не активно, пробует подключиться. Максимальное количество попыток подключения указано в переменной **$chk_count**.
+
+**-s** - тихий режим, используется вместе с опцией **-с $NameOfConnection**
