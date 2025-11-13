@@ -25,7 +25,7 @@ selectConnection() {
     echo "  $((i + 1))) ${arr_conn[$i]}"
   done
 
-  read -p "Enter number (1 - ${#arr_conn[@]}):    " num
+  read -p "Enter number (1 - ${#arr_conn[@]}): " num
   num=${num:-1}
   _vpn=${arr_conn[$((num - 1))]}
 
