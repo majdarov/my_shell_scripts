@@ -7,6 +7,7 @@
 #   echo "  $((i + 1))) '${connections[$i]}'"
 # done
 # 
+# Temporary stub (Временнная заглушка)
 tput setaf 1 && tput setab 35
 printf "Script $0 in work!!!$(tput sgr0)\n"
 exit 0
