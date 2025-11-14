@@ -1,17 +1,12 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-# connections=( nmcli c | grep vpn | cut -d ' ' -f 1 )
-connections=( nmcli c | cut -d ' ' -f 1 )
-
-# arr_conn=()
-# for conn in $connections
+# connections=($( ls -al | cut -d ' ' -f 9 ))
+# 
+# for i in "${connections}"
 # do
-#   arr_conn+=($conn)
+#   echo "  $((i + 1))) '${connections[$i]}'"
 # done
-
-for i in "${connections}"
-do
-  echo "  $((i + 1))) ${connections[$i]}"
-done
-
+# 
+tput setaf 1 && tput setab 35
+printf "Script $0 in work!!!$(tput sgr0)\n"
 exit 0
