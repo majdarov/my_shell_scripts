@@ -127,7 +127,7 @@ set_ps1() {
             #   \u@\h - username@host (bold/green)
             #   \w - working directory (bold/blue)
             #   \$ - prompt (# if root, otherwise $) (bold/white)
-            PS1="\[${bg_white}${fg_mygrey}\] \u > \[${reset}${bg_mycyan}${fg_black}\] \w > \[${reset}\]\$(_git_info) \n\\$\[${reset}\] "
+            PS1="\[${bg_white}${fg_mygrey}\] \u@\h > \[${reset}${bg_mycyan}${fg_black}\] \w > \[${reset}\]\$(_git_info) \n\\$\[${reset}\] "
         ;;
 
         *)
