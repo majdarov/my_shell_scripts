@@ -127,7 +127,7 @@ set_ps1() {
             #   \u@\h - username@host (bold/green)
             #   \w - working directory (bold/blue)
             #   \$ - prompt (# if root, otherwise $) (bold/white)
-            PS1="\[${bg_white}${fg_mygrey}\] \u@\h ➣ \[${reset}${bg_mycyan}${fg_black}\] \w ➣ \[${reset}\]\$(_git_info) \n\\$\[${reset}\] "
+            PS1="\[${bg_white}${fg_mygrey}\] \u@\h ➤ \[${reset}${bg_mycyan}${fg_black}\] \w ➤ \[${reset}\]\$(_git_info) \n\\$\[${reset}\] "
         ;;
 
         *)
@@ -177,7 +177,7 @@ _git_info() {
     if ! [ -z "${git_any_local_changes}" ]; then
         # Note that we have to be careful to put the exclamation mark
         # in single quotes so that it is not expanded to the last command!
-        git_info="${git_info}${fg_red}"'!'" "
+        git_info="${git_info}${fg_red}"''︕" "
     fi
     if [ "${git_stash_count:-0}" -gt 0 ]; then
         git_info="${git_info}${fg_yellow}${git_stash_count} in stash"

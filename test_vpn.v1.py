@@ -45,7 +45,7 @@ def activate_vpn_connection(cf: list):
 def deactivate_vpn_connection(cf_vpn: str):
     result = subprocess.run(['nmcli', 'c', 'down', cf_vpn])
     if result.returncode == 0:
-        print(f"Connection {cf_vpn} deactivated! \n Do you want activate any connection (y/N)?: ", end='')
+        print(f"Do you want activate any connection (y/N)?: ", end='')
         yn = input()
         if yn == 'y':
             activate_vpn_connection(get_vpn_connections())
