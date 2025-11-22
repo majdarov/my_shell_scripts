@@ -5,8 +5,12 @@ import subprocess
 # Get vpn connections
 def get_vpn_connections():
     result = subprocess.run(['nmcli c show'], shell=True, capture_output=True, text=True)
-    l_conn = result.stdout.split('\n')[1:-1]
-    return [ l.split() for l in l_conn if 'vpn' in l ]
+    if result.returncode == 0:
+        l_conn = result.stdout.split('\n')[1:-1]
+        return [ l.split() for l in l_conn if 'vpn' in l ]
+    else:
+        print(result.stderr)
+        exit(1)
 #-----------end------------
 
 # Get active vpn connection
@@ -57,8 +61,12 @@ def deactivate_vpn_connection(cf_vpn: str):
 #-----------end------------
 
 # Main
-cf = get_vpn_connections()
-is_active_vpn, cf_vpn = get_active_vpn_connections(cf)
+try:
+    cf = get_vpn_connections()
+    is_active_vpn, cf_vpn = get_active_vpn_connections(cf)
+except:
+    print("Error!")
+    exit(1)
 
 if not is_active_vpn:
     activate_vpn_connection(cf)
